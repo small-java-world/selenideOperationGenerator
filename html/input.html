@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>操作対象サンプル</title>
+</head>
+<body>
+  
+  <h1>操作対象 input サンプル</h1>
+  
+  <label>button：</label>
+  <input type="button" id="addButton" value="追加ボタン">
+  <input type="button" id="deleteButton" value="削除ボタン">
+  <input type="button" id="delayDeleteButton" value="遅延削除ボタン">
+  <input type="button" id="notDisplayButton" name="notDisplayButton" value="非表示のボタン" style="display:none">
+  <div style="visibility:hidden>
+    <input type="button" id="blockedButton" name="blockedButton" value="親要素が非表示のボタン">
+  </div>
+  <HR>
+    
+  <label>radio：</label>
+  <input type="radio" name="grade" id="grade1" value="1"><label for="grade1">１年生</label>
+  <input type="radio" name="grade" id="grade2" value="2"><label for="grade2">２年生</label>
+  <HR>
+  
+  <label>checkbox：</label>
+  <input type="checkbox" name="lang" id="lang1" value="1"><label for="lang1">Java</label>
+  <input type="checkbox" name="lang" id="lang2" value="2"><label for="lang2">C#</label>
+  <HR>
+    
+  <label>text:</label>
+  
+  <div id="p-input1-2-1">
+     <input type="text" name="input1-2" id="input1" maxlength="10" value="input1-3" hoge="3">
+  </div>
+  <div id="p-input1-2-2">
+     <input type="text" name="input1-2" id="input1" maxlength="10" value="input1-3" hoge="3">
+  </div>
+  
+  <BR>
+  <input type="text" name="input1-1" id="input1" maxlength="10" value="input1-1">
+  <input type="text" name="input1-2" id="input1" maxlength="10" value="input1-2" hoge="1">
+  <input type="text" name="input1-2" id="input1" maxlength="10" value="input1-3" hoge="2">
+  <input type="text" name="input1-2" id="input1" maxlength="10" value="input1-3" hoge="3">
+  <BR> 
+  
+  
+</body>
+</html>

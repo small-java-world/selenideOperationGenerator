@@ -13,7 +13,10 @@ repositories {
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib"
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter-params:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+
+
     implementation 'com.codeborne:selenide:5.20.1'
     // https://mvnrepository.com/artifact/org.jsoup/jsoup
     implementation group: 'org.jsoup', name: 'jsoup', version: '1.13.1'
@@ -23,8 +26,22 @@ dependencies {
     implementation 'ch.qos.logback:logback-classic:1.2.3'
     implementation group: 'org.apache.commons', name: 'commons-text', version: '1.9'
     implementation group: 'org.freemarker', name: 'freemarker', version: '2.3.31'
+
+    testImplementation "io.mockk:mockk:1.11.0"
+}
+
+compileKotlin {
+    kotlinOptions.jvmTarget = "11"
+}
+
+compileTestKotlin {
+    kotlinOptions.jvmTarget = "11"
 }
 
 test {
     useJUnitPlatform()
 }
+
+//assertFileEqualsで読み込むファイルを$buildDir/classes/kotlin/testを基準パスとするために
+// test/resourcesのファイルを$buildDir/classes/kotlin/testに出力するように変更
+sourceSets.test.output.resourcesDir = "$buildDir/classes/kotlin/test"

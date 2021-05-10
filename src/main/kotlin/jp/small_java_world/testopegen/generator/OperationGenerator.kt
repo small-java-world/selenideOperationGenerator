@@ -1,8 +1,8 @@
 package jp.small_java_world.testopegen.generator
 
-import jp.small_java_world.testopegen.define.CommonDef.Companion.CONFIRM_EXISTENCE_TEMPLATE
-import jp.small_java_world.testopegen.define.CommonDef.Companion.TARGET_CSS_SELECTOR
+import jp.small_java_world.testopegen.define.CommonDef
 import jp.small_java_world.testopegen.define.TargetElementType
+import jp.small_java_world.testopegen.util.SelenideUtil
 import org.apache.commons.text.CharacterPredicate
 import org.apache.commons.text.RandomStringGenerator
 
@@ -12,20 +12,26 @@ interface OperationGenerator {
 
     fun generateOperation(cssSelector: String?): MutableList<String> {
         var testOperationList = mutableListOf<String>()
-        testOperationList.addAll(addConfirmOperation(cssSelector, getElementType().tagNameJp))
-        generateCustomOperation(cssSelector, testOperationList)
+        if(addConfirmOperation(cssSelector, getElementType().tagNameJp, testOperationList)) {
+            generateCustomOperation(cssSelector, testOperationList)
+        }
         return testOperationList;
     }
 
-    fun addConfirmOperation(cssSelector: String?, elementName: String): MutableList<String> {
-        var result = mutableListOf<String>()
-        result.add(" /**************** cssSelector ${cssSelector} の処理 start ****************/")
+    fun addConfirmOperation(cssSelector: String?, elementName: String, testOperationList: MutableList<String>): Boolean {
+        testOperationList.add("/**************** cssSelector ${cssSelector} の処理 start ****************/")
 
-        val confirmOperation = CONFIRM_EXISTENCE_TEMPLATE.replace(TARGET_CSS_SELECTOR, cssSelector!!)
-        result.add("//${elementName}の存在確認")
-        result.add(confirmOperation)
-        result.add("")
-        return result
+        if(!SelenideUtil.confirmExistenceByCssSelector(cssSelector!!)) {
+            testOperationList.add("confirmExistenceByCssSelector fail")
+            return false
+        }
+
+        val confirmOperation = CommonDef.CONFIRM_EXISTENCE_TEMPLATE.replace(CommonDef.TARGET_CSS_SELECTOR, cssSelector!!)
+        testOperationList.add("//${elementName}の存在確認")
+        testOperationList.add(confirmOperation)
+        testOperationList.add("")
+
+        return true
     }
 
     fun generateRandomLetterOrDigit(length: Int): String {

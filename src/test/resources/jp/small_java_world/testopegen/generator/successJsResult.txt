@@ -1,0 +1,9 @@
+/**************** cssSelector cssSelectorValue の処理 start ****************/
+//ボタンの存在確認
+SelenideUtil.confirmExistenceByCssSelector("cssSelectorValue")
+
+// clickByCssSelector fail
+//SelenideUtil.clickByCssSelector("cssSelectorValue")
+
+SelenideUtil.clickByCssSelectorUseJS("cssSelectorValue")
+

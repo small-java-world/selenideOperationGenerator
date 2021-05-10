@@ -3,13 +3,13 @@ package jp.small_java_world.testopegen.analyzer
 import jp.small_java_world.testopegen.define.TAG_NAME_INPUT
 import jp.small_java_world.testopegen.define.TAG_NAME_SELECT
 import jp.small_java_world.testopegen.define.TargetElementType
-import jp.small_java_world.testopegen.util.isDuplicateByCssSelector
+import jp.small_java_world.testopegen.util.SelenideUtil
 import org.jsoup.nodes.Attribute
 import org.jsoup.nodes.Element
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
-interface CssSelectorAnalyzer {
+class CssSelectorAnalyzer {
     /**
      * targetElementを一意に識別可能なCssSelectorの文字列がfirst
      * targetElementに対応するTargetElementTypeがsecondの
@@ -37,7 +37,7 @@ interface CssSelectorAnalyzer {
 
         var cssSelectorValue = targetElement.cssSelector()
         //targetElement.cssSelector()で要素が重複していない場合は、targetElement.cssSelector()の値を返却
-        if (!isDuplicateByCssSelector(cssSelectorValue!!)) {
+        if (!SelenideUtil.isDuplicateByCssSelector(cssSelectorValue!!)) {
             return cssSelectorValue to elementType
         }
 
@@ -54,7 +54,7 @@ interface CssSelectorAnalyzer {
         attributes.remove("name")
 
         //タグごとの除外属性を除去
-        for(removeAttrName in getRemoveAttrNameList()) {
+        for(removeAttrName in getRemoveAttrNameList(elementType)) {
             attributes.remove(removeAttrName)
         }
 
@@ -73,7 +73,7 @@ interface CssSelectorAnalyzer {
                     if (parentCssSelector == null) targetCssSelector else "$parentCssSelector > $targetCssSelector"
 
                 //cssSelectorValueでHTML要素が一意であれば結果をリターン
-                if (!isDuplicateByCssSelector(cssSelectorValue)) {
+                if (!SelenideUtil.isDuplicateByCssSelector(cssSelectorValue)) {
                     return cssSelectorValue to elementType
                 }
             }
@@ -82,17 +82,23 @@ interface CssSelectorAnalyzer {
         return null to null
     }
 
-    fun getRemoveAttrNameList() :List<String>
+    private fun getRemoveAttrNameList(targetElementType:TargetElementType?): List<String> {
+        return when (targetElementType) {
+            TargetElementType.INPUT_TEXT -> listOf("value", "size", "maxlength")
+            else -> listOf()
+        }
+
+    }
 
     fun getParentCssSelector(targetElement: Element?): String? {
         val parent = targetElement?.parent() ?: return null
         var cssSelectorValue = parent.cssSelector()
-        if (!isDuplicateByCssSelector(cssSelectorValue)) {
+        if (!SelenideUtil.isDuplicateByCssSelector(cssSelectorValue)) {
             return cssSelectorValue
         }
 
         cssSelectorValue = "${getParentCssSelector(parent)} > $parent.tagName()"
-        if (!isDuplicateByCssSelector(cssSelectorValue)) {
+        if (!SelenideUtil.isDuplicateByCssSelector(cssSelectorValue)) {
             return cssSelectorValue
         }
 

@@ -1,9 +1,9 @@
 package jp.small_java_world.testopegen
 
 import com.codeborne.selenide.WebDriverRunner
+import jp.small_java_world.testopegen.analyzer.CssSelectorAnalyzer
 import jp.small_java_world.testopegen.define.TargetElementType
 import jp.small_java_world.testopegen.generator.OperationGeneratorFactory
-import jp.small_java_world.testopegen.analyzer.InputCssSelectorAnalyzer
 import jp.small_java_world.testopegen.util.TestOperationFileWriter
 import org.jsoup.Jsoup
 import org.jsoup.parser.Parser
@@ -42,7 +42,7 @@ class TestExampleOperationGenerator {
         //ボタン以外のテスト操作を格納
         var testOperationList = mutableListOf<String>()
 
-        val cssSelectorAnalyzer = InputCssSelectorAnalyzer()
+        val cssSelectorAnalyzer = CssSelectorAnalyzer()
 
         //各inputタグを処理していく
         for (inputTagElement in inputTagElements + selectTagElements) {

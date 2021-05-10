@@ -13,7 +13,7 @@ import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
-class InputCssSelectorAnalyzerTest {
+class CssSelectorAnalyzerTest {
     companion object {
         @JvmStatic
         @BeforeAll
@@ -91,7 +91,7 @@ class InputCssSelectorAnalyzerTest {
         val inputTagElements = openAndGetElements(htmlFileName)
         assertEquals(expectedResultList.size,  inputTagElements.size)
 
-        val cssSelectorAnalyzer = InputCssSelectorAnalyzer()
+        val cssSelectorAnalyzer = CssSelectorAnalyzer()
         for ((index, inputTagElement) in inputTagElements.withIndex()) {
             assertEquals(expectedResultList[index], cssSelectorAnalyzer.getCssSelectorElementTypePair(inputTagElement))
         }

@@ -2,11 +2,9 @@ package jp.small_java_world.testopegen.generator
 
 import com.codeborne.selenide.ex.InvalidStateException
 import com.codeborne.selenide.ex.UIAssertionError
-import jp.small_java_world.testopegen.define.CommonDef.Companion.CLICK_TEMPLATE
-import jp.small_java_world.testopegen.define.CommonDef.Companion.CLICK_USE_JS_TEMPLATE
-import jp.small_java_world.testopegen.define.CommonDef.Companion.TARGET_CSS_SELECTOR
+import jp.small_java_world.testopegen.define.CommonDef
 import jp.small_java_world.testopegen.define.TargetElementType
-import jp.small_java_world.testopegen.util.clickByCssSelector
+import jp.small_java_world.testopegen.util.SelenideUtil
 
 class ButtonOperationGenerator : OperationGenerator {
     override fun getElementType(): TargetElementType {
@@ -17,28 +15,27 @@ class ButtonOperationGenerator : OperationGenerator {
         cssSelector: String?,
         testOperationList: MutableList<String>
     ): Collection<String> {
-
         var usingJavaScript = false
 
         try {
-            clickByCssSelector(cssSelector!!)
+            SelenideUtil.clickByCssSelector(cssSelector!!)
         } catch (e: Throwable) {
             when (e) {
                 //UIAssertionError:非表示の要素をクリック、InvalidStateException他の要素によりクリックがブロック
-                is UIAssertionError, is InvalidStateException -> {
-                    testOperationList.add("// clickByCssSelectorでは押せませんでした!!")
+                is UIAssertionError -> {
+                    testOperationList.add("// clickByCssSelector fail")
                     usingJavaScript = true
                 }
                 else -> throw e
             }
         }
 
-        val clickOperation = CLICK_TEMPLATE.replace(TARGET_CSS_SELECTOR, cssSelector!!)
+        val clickOperation = CommonDef.CLICK_TEMPLATE.replace(CommonDef.TARGET_CSS_SELECTOR, cssSelector!!)
         testOperationList.add(if (usingJavaScript) "//$clickOperation" else clickOperation)
         testOperationList.add("")
 
         if (usingJavaScript) {
-            val clickUseJsOperation = CLICK_USE_JS_TEMPLATE.replace(TARGET_CSS_SELECTOR, cssSelector)
+            val clickUseJsOperation = CommonDef.CLICK_USE_JS_TEMPLATE.replace(CommonDef.TARGET_CSS_SELECTOR, cssSelector)
             testOperationList.add(clickUseJsOperation)
             testOperationList.add("")
         }

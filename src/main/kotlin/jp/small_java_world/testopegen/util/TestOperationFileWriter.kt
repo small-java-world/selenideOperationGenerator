@@ -34,24 +34,27 @@ class TestOperationFileWriter {
             templateMap["testMethodDataList"] = testMethodDataMapList
 
             for ((index, testButtonOperations) in testButtonOperationCollectionList.withIndex()) {
+                //各ボタン要素に対する操作をtestMethodDataMapListに追加
                 val testMethodDataMap = generateTestMethodDataMap("button$index test operation", testButtonOperations)
                 if (testMethodDataMap.isNotEmpty()) {
                     testMethodDataMapList.add(testMethodDataMap)
                 }
             }
 
-
+            //各ボタン以外の要素に対する操作をtestMethodDataMapListに追加
             val testMethodDataMap = generateTestMethodDataMap("input test operation", testOperationList)
             if (testMethodDataMap.isNotEmpty()) {
                 testMethodDataMapList.add(testMethodDataMap)
             }
 
+            //操作を含んだファイルの出力先を確認し、存在しなければ作成
             val outputDirPath =
                 Paths.get(".${File.separator}src${File.separator}test${File.separator}kotlin${File.separator}output")
             if (!Files.exists(outputDirPath)) {
                 Files.createDirectory(outputDirPath)
             }
 
+            //ファイル出力
             File("${outputDirPath}${File.separator}$testClassName.kt").bufferedWriter()
                 .use { bufferedWriter ->
                     template.process(templateMap, bufferedWriter)

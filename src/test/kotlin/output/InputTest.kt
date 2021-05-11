@@ -14,7 +14,7 @@ class InputTest {
     companion object {
         @JvmStatic
         @BeforeAll
-        fun initialize() {
+        fun beforeAll() {
             Configuration.browser = WebDriverRunner.CHROME;
         }
     }
@@ -35,6 +35,7 @@ class InputTest {
         
 
     }
+
     @Test
     fun `button1 test operation`() {
         /**************** cssSelector #deleteButton の処理 start ****************/
@@ -45,6 +46,7 @@ class InputTest {
         
 
     }
+
     @Test
     fun `button2 test operation`() {
         /**************** cssSelector #delayDeleteButton の処理 start ****************/
@@ -55,6 +57,7 @@ class InputTest {
         
 
     }
+
     @Test
     fun `button3 test operation`() {
         /**************** cssSelector #notDisplayButton の処理 start ****************/
@@ -68,6 +71,7 @@ class InputTest {
         
 
     }
+
     @Test
     fun `input test operation`() {
         /**************** cssSelector #grade1 の処理 start ****************/
@@ -127,62 +131,63 @@ class InputTest {
         SelenideUtil.confirmExistenceByCssSelector("#p-input1-2-1 > #input1")
         
         //テキストボックスへの入力
-        SelenideUtil.inputTextByCssSelector("#p-input1-2-1 > #input1", "bbrn")
+        SelenideUtil.inputTextByCssSelector("#p-input1-2-1 > #input1", "d8O7")
         
         //テキストボックスへ入力した値の検証
-        SelenideUtil.shouldBeValueByCssSelector("#p-input1-2-1 > #input1", "bbrn")
+        SelenideUtil.shouldBeValueByCssSelector("#p-input1-2-1 > #input1", "d8O7")
         
         /**************** cssSelector #p-input1-2-2 > #input1 の処理 start ****************/
         //テキストボックスの存在確認
         SelenideUtil.confirmExistenceByCssSelector("#p-input1-2-2 > #input1")
         
         //テキストボックスへの入力
-        SelenideUtil.inputTextByCssSelector("#p-input1-2-2 > #input1", "FGaL")
+        SelenideUtil.inputTextByCssSelector("#p-input1-2-2 > #input1", "Fgjp")
         
         //テキストボックスへ入力した値の検証
-        SelenideUtil.shouldBeValueByCssSelector("#p-input1-2-2 > #input1", "FGaL")
+        SelenideUtil.shouldBeValueByCssSelector("#p-input1-2-2 > #input1", "Fgjp")
         
         /**************** cssSelector input[name='input1-1'] の処理 start ****************/
         //テキストボックスの存在確認
         SelenideUtil.confirmExistenceByCssSelector("input[name='input1-1']")
         
         //テキストボックスへの入力
-        SelenideUtil.inputTextByCssSelector("input[name='input1-1']", "FTCH")
+        SelenideUtil.inputTextByCssSelector("input[name='input1-1']", "46RN")
         
         //テキストボックスへ入力した値の検証
-        SelenideUtil.shouldBeValueByCssSelector("input[name='input1-1']", "FTCH")
+        SelenideUtil.shouldBeValueByCssSelector("input[name='input1-1']", "46RN")
         
         /**************** cssSelector input[hoge='1'] の処理 start ****************/
         //テキストボックスの存在確認
         SelenideUtil.confirmExistenceByCssSelector("input[hoge='1']")
         
         //テキストボックスへの入力
-        SelenideUtil.inputTextByCssSelector("input[hoge='1']", "tfVu")
+        SelenideUtil.inputTextByCssSelector("input[hoge='1']", "WIGX")
         
         //テキストボックスへ入力した値の検証
-        SelenideUtil.shouldBeValueByCssSelector("input[hoge='1']", "tfVu")
+        SelenideUtil.shouldBeValueByCssSelector("input[hoge='1']", "WIGX")
         
         /**************** cssSelector input[hoge='2'] の処理 start ****************/
         //テキストボックスの存在確認
         SelenideUtil.confirmExistenceByCssSelector("input[hoge='2']")
         
         //テキストボックスへの入力
-        SelenideUtil.inputTextByCssSelector("input[hoge='2']", "Mbbd")
+        SelenideUtil.inputTextByCssSelector("input[hoge='2']", "aWF7")
         
         //テキストボックスへ入力した値の検証
-        SelenideUtil.shouldBeValueByCssSelector("input[hoge='2']", "Mbbd")
+        SelenideUtil.shouldBeValueByCssSelector("input[hoge='2']", "aWF7")
         
         /**************** cssSelector html > body > input[hoge='3'] の処理 start ****************/
         //テキストボックスの存在確認
         SelenideUtil.confirmExistenceByCssSelector("html > body > input[hoge='3']")
         
         //テキストボックスへの入力
-        SelenideUtil.inputTextByCssSelector("html > body > input[hoge='3']", "2B2k")
+        SelenideUtil.inputTextByCssSelector("html > body > input[hoge='3']", "nmDo")
         
         //テキストボックスへ入力した値の検証
-        SelenideUtil.shouldBeValueByCssSelector("html > body > input[hoge='3']", "2B2k")
+        SelenideUtil.shouldBeValueByCssSelector("html > body > input[hoge='3']", "nmDo")
         
 
     }
+
 
 }

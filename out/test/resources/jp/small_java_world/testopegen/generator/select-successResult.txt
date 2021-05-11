@@ -1,0 +1,22 @@
+/**************** cssSelector cssSelectorValue の処理 start ****************/
+//セレクトボックスの存在確認
+SelenideUtil.confirmExistenceByCssSelector("cssSelectorValue")
+
+//SELECTボックスを値で選択 value=<dummyTagName class disabled readonly href id name onclick onchange placeholder type value="value1">text1</dummyTagName>.value
+SelenideUtil.selectOptionByValueByCssSelector("cssSelectorValue", "value1")
+
+//SELECTボックスをオプションで選択 option=text1
+SelenideUtil.selectOptionByCssSelector("cssSelectorValue", "text1")
+
+//SELECTボックスの選択確認
+SelenideUtil.shouldBeSelectedByCssSelector("cssSelectorValue > option[value='value1']")
+
+//SELECTボックスを値で選択 value=<dummyTagName class disabled readonly href id name onclick onchange placeholder type value="value2">text2</dummyTagName>.value
+SelenideUtil.selectOptionByValueByCssSelector("cssSelectorValue", "value2")
+
+//SELECTボックスをオプションで選択 option=text2
+SelenideUtil.selectOptionByCssSelector("cssSelectorValue", "text2")
+
+//SELECTボックスの選択確認
+SelenideUtil.shouldBeSelectedByCssSelector("cssSelectorValue > option[value='value2']")
+

@@ -1,0 +1,16 @@
+/**************** cssSelector cssSelectorValue の処理 start ****************/
+//チェックボックスの存在確認
+SelenideUtil.confirmExistenceByCssSelector("cssSelectorValue")
+
+//チェックボックスのチェック
+SelenideUtil.checkByCssSelector("cssSelectorValue")
+
+//チェックされたことの検証
+SelenideUtil.shouldBeSelectedByCssSelector("cssSelectorValue")
+
+//チェックボックスのアンチェック
+SelenideUtil.unCheckByCssSelector("cssSelectorValue")
+
+//チェックさていないことの検証
+SelenideUtil.shouldBeNotSelectedByCssSelector("cssSelectorValue")
+

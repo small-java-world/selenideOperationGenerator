@@ -1,0 +1,10 @@
+/**************** cssSelector cssSelectorValue の処理 start ****************/
+//テキストボックスの存在確認
+SelenideUtil.confirmExistenceByCssSelector("cssSelectorValue")
+
+//テキストボックスへの入力
+SelenideUtil.inputTextByCssSelector("cssSelectorValue", "dummy")
+
+//テキストボックスへ入力した値の検証
+SelenideUtil.shouldBeValueByCssSelector("cssSelectorValue", "dummy")
+

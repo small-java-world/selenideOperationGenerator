@@ -6,11 +6,16 @@ import com.codeborne.selenide.ElementsCollection
 import com.codeborne.selenide.Selenide
 import com.codeborne.selenide.SelenideElement
 import com.codeborne.selenide.WebDriverRunner
+import jp.small_java_world.testopegen.generator.SelectOperationGenerator
 import org.openqa.selenium.By
 import org.openqa.selenium.JavascriptExecutor
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 
 class SelenideUtil {
     companion object {
+        private val logger: Logger = LoggerFactory.getLogger(SelectOperationGenerator::class.java)
+
         @JvmStatic
         fun selectByName(tagName: String): SelenideElement {
             return Selenide.`$`(By.name(tagName))
@@ -29,7 +34,13 @@ class SelenideUtil {
 
         @JvmStatic
         fun selectListByCssSelector(cssSelector: String): ElementsCollection {
-            return Selenide.`$$`(By.cssSelector(cssSelector))
+            logger.info("selectListByCssSelector cssSelector=$cssSelector start ")
+
+            try {
+                return Selenide.`$$`(By.cssSelector(cssSelector))
+            }finally {
+                logger.info("selectListByCssSelector cssSelector=$cssSelector end ")
+            }
         }
 
         @JvmStatic

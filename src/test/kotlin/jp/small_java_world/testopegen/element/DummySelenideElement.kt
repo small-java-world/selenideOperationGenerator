@@ -96,7 +96,7 @@ class DummySelenideElement : SelenideElement {
     }
 
     override fun getWrappedElement(): WebElement {
-        TODO("Not yet implemented getWrappedElement")
+        return DummySelenideElement()
     }
 
     override fun getCoordinates(): Coordinates {

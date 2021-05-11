@@ -36,10 +36,10 @@ class TestExampleOperationGenerator {
         //selectタグのorg.jsoup.select.Elementsを取得
         val selectTagElements = htmlDocument.getElementsByTag("select")
 
-        //ボタンのテスト操作を格納 ボタン押すと画面遷移する可能性があるので、ボタンは1要素(HTMLの)につき1テストメソッドとするので別に管理
+        //ボタンのテスト操作の格納用 ボタン押すと画面遷移する可能性があるので、ボタンは1要素(HTMLの)につき1テストメソッドとするので別に管理
         var testButtonOperationCollectionList = mutableListOf<MutableList<String>>()
 
-        //ボタン以外のテスト操作を格納
+        //ボタン以外のテスト操作の格納用
         var testOperationList = mutableListOf<String>()
 
         val cssSelectorAnalyzer = CssSelectorAnalyzer()
@@ -48,10 +48,13 @@ class TestExampleOperationGenerator {
         for (inputTagElement in inputTagElements + selectTagElements) {
             // 現在の処理対象のinputTagElementに対応する Pair<String?, TargetElementType?>を取得
             var selectorElementTypePair = cssSelectorAnalyzer.getCssSelectorElementTypePair(inputTagElement)
+
+            //TargetElementTypeに対応するOperationGeneratorを生成
             var operationGenerator = OperationGeneratorFactory.getOperationGenerator(selectorElementTypePair.second)
 
             if (operationGenerator != null) {
                 when (selectorElementTypePair.second) {
+                    //TargetElementType.INPUT_BUTTONのときのみtestButtonOperationCollectionListに追加
                     TargetElementType.INPUT_BUTTON -> testButtonOperationCollectionList.add(
                         operationGenerator.generateOperation(
                             selectorElementTypePair.first
@@ -62,6 +65,7 @@ class TestExampleOperationGenerator {
             }
         }
 
+        //ファイル出力
         TestOperationFileWriter.writeFile(
             classTemplateFileName,
             testClassName,

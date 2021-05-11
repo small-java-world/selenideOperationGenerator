@@ -1,5 +1,7 @@
 package jp.small_java_world.testopegen
 
+import io.mockk.clearAllMocks
+import io.mockk.unmockkAll
 import org.apache.commons.io.FileUtils
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.slf4j.Logger
@@ -10,6 +12,8 @@ import java.nio.charset.StandardCharsets
 
 open class TestBase {
     private val logger: Logger = LoggerFactory.getLogger(TestBase::class.java)
+
+    open fun afterEach() = unmockkAll()
 
     /**
      * 指定ファイルの中身を期待値としてactualと一致するか検証します。

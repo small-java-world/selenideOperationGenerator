@@ -3,28 +3,33 @@ package jp.small_java_world.testopegen.analyzer
 import com.codeborne.selenide.Configuration
 import com.codeborne.selenide.Selenide
 import com.codeborne.selenide.WebDriverRunner
+import jp.small_java_world.testopegen.TestBase
 import jp.small_java_world.testopegen.define.TargetElementType
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Element
 import org.jsoup.parser.Parser
 import org.jsoup.select.Elements
+import org.junit.jupiter.api.*
 import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.BeforeAll
-import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.Test
 
-class CssSelectorAnalyzerTest {
+class CssSelectorAnalyzerTest : TestBase() {
     companion object {
         @JvmStatic
         @BeforeAll
-        fun initialize() {
+        fun beforeAll() {
             Configuration.browser = WebDriverRunner.CHROME;
+        }
+
+        @JvmStatic
+        @AfterAll
+        fun afterAll() {
+            WebDriverRunner.closeWebDriver()
         }
     }
 
-    @BeforeEach
-    fun beforeEach() {
-
+    @AfterEach
+    override fun afterEach() {
+        super.afterEach()
     }
 
     @Test

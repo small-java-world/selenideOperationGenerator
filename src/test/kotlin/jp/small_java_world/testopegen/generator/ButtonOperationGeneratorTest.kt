@@ -8,6 +8,7 @@ import io.mockk.verify
 import jp.small_java_world.testopegen.TestBase
 import jp.small_java_world.testopegen.define.TargetElementType
 import jp.small_java_world.testopegen.util.SelenideUtil
+import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
@@ -21,6 +22,11 @@ class ButtonOperationGeneratorTest : OperationGeneratorTestBase() {
     @BeforeEach
     override fun beforeEach() {
         super.beforeEach()
+    }
+
+    @AfterEach
+    override fun afterEach() {
+        super.afterEach()
     }
 
     override fun getTargetOperationGenerator(): OperationGenerator {

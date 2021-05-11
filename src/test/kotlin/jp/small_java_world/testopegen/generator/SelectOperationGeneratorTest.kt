@@ -15,6 +15,7 @@ import jp.small_java_world.testopegen.define.TargetElementType
 import jp.small_java_world.testopegen.element.DummySelenideElement
 import jp.small_java_world.testopegen.util.SelenideUtil
 import jp.small_java_world.testopegen.util.generateRandomLetterOrDigit
+import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -31,6 +32,11 @@ class SelectOperationGeneratorTest : OperationGeneratorTestBase() {
     @BeforeEach
     override fun beforeEach() {
         super.beforeEach()
+    }
+
+    @AfterEach
+    override fun afterEach() {
+        super.afterEach()
     }
 
     override fun getTargetOperationGenerator(): OperationGenerator {

@@ -5,8 +5,11 @@ import jp.small_java_world.testopegen.define.TargetElementType
 import jp.small_java_world.testopegen.util.SelenideUtil
 import org.apache.commons.text.CharacterPredicate
 import org.apache.commons.text.RandomStringGenerator
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 
 interface OperationGenerator {
+
     fun generateCustomOperation(cssSelector: String?, testOperationList : MutableList<String>): Collection<String>
     fun getElementType(): TargetElementType
 
@@ -15,6 +18,7 @@ interface OperationGenerator {
         if(addConfirmOperation(cssSelector, getElementType().tagNameJp, testOperationList)) {
             generateCustomOperation(cssSelector, testOperationList)
         }
+
         return testOperationList;
     }
 

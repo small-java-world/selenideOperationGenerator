@@ -10,7 +10,7 @@ import java.nio.file.Paths
 
 class TestOperationFileWriter {
     companion object {
-        const val SPACE_STRING = "        "
+        private const val SPACE_STRING = "        "
 
         fun writeFile(
             classTemplateFileName: String,
@@ -20,7 +20,7 @@ class TestOperationFileWriter {
             testButtonOperationCollectionList: MutableList<MutableList<String>>
         ) {
             val configuration = Configuration(Configuration.VERSION_2_3_23)
-            configuration.setDirectoryForTemplateLoading(File("src/main/resources/template"))
+            configuration.setDirectoryForTemplateLoading(File("./src/main/resources/template"))
             val template = configuration.getTemplate(classTemplateFileName)
 
             val templateMap = mutableMapOf<String, Any>()

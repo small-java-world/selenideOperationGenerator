@@ -1,0 +1,10 @@
+/**************** cssSelector cssSelectorValue の処理 start ****************/
+//ラジオボタンの存在確認
+SelenideUtil.confirmExistenceByCssSelector("cssSelectorValue")
+
+//ラジオボタンの選択
+SelenideUtil.selectRadioByCssSelector("input[name=radio-name]", "radio-value")
+
+//ラジオボタンの選択の検証
+SelenideUtil.shouldBeSelectedByCssSelector("cssSelectorValue")
+

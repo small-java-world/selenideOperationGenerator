@@ -1,2 +1,2 @@
 /**************** cssSelector cssSelectorValue の処理 start ****************/
-confirmExistenceByCssSelector fail
+//confirmExistenceByCssSelector fail

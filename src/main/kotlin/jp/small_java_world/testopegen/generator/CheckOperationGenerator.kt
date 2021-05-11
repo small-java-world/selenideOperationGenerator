@@ -11,7 +11,10 @@ class CheckOperationGenerator : OperationGenerator {
         return TargetElementType.INPUT_CHECKBOX
     }
 
-    override fun generateCustomOperation(cssSelector: String?, testOperationList : MutableList<String>): Collection<String> {
+    override fun generateCustomOperation(
+        cssSelector: String?,
+        testOperationList: MutableList<String>
+    ): Collection<String> {
         testOperationList.add("//チェックボックスのチェック")
         SelenideUtil.checkByCssSelector(cssSelector!!)
 
@@ -20,6 +23,8 @@ class CheckOperationGenerator : OperationGenerator {
         testOperationList.add("")
 
         testOperationList.add("//チェックされたことの検証")
+        SelenideUtil.shouldBeSelectedByCssSelector(cssSelector!!)
+
         val confirmOperation = CommonDef.CONFIRM_SELECTED_TEMPLATE.replace(CommonDef.TARGET_CSS_SELECTOR, cssSelector)
         testOperationList.add(confirmOperation)
         testOperationList.add("")
@@ -34,7 +39,8 @@ class CheckOperationGenerator : OperationGenerator {
         testOperationList.add("//チェックさていないことの検証")
         SelenideUtil.shouldBeNotSelectedByCssSelector(cssSelector)
 
-        val confirmUnCheckOperation = CommonDef.CONFIRM_NOT_SELECTED_TEMPLATE.replace(CommonDef.TARGET_CSS_SELECTOR, cssSelector)
+        val confirmUnCheckOperation =
+            CommonDef.CONFIRM_NOT_SELECTED_TEMPLATE.replace(CommonDef.TARGET_CSS_SELECTOR, cssSelector)
         testOperationList.add(confirmUnCheckOperation)
         testOperationList.add("")
 

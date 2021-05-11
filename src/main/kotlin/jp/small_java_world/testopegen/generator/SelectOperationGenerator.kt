@@ -15,26 +15,29 @@ class SelectOperationGenerator : OperationGenerator {
         cssSelector: String?,
         testOperationList: MutableList<String>
     ): Collection<String> {
-        val options = Selenide.`$$`(By.cssSelector("$cssSelector > option"))
+        val options = SelenideUtil.selectListByCssSelector("$cssSelector > option")
 
-        testOperationList.add("//SELECTボックスの選択")
         for (option in options) {
+            var aa = option.value
             SelenideUtil.selectOptionByValueByCssSelector(cssSelector!!, option.value!!)
             SelenideUtil.selectOptionByCssSelector(cssSelector!!, option.text())
             SelenideUtil.shouldBeValueByCssSelector(cssSelector!!, option.value!!)
 
+            testOperationList.add("//SELECTボックスを値で選択 value=$option.value")
             val selectOptionByValueOperation =
                 CommonDef.SELECT_OPTION_BY_VALUE_TEMPLATE.replace(CommonDef.TARGET_CSS_SELECTOR, cssSelector!!)
                     .replace(CommonDef.INPUT_VALUE, option.value!!)
             testOperationList.add(selectOptionByValueOperation)
             testOperationList.add("")
 
+            testOperationList.add("//SELECTボックスをオプションで選択 option=${option.text()}")
             val selectOptionOperation =
                 CommonDef.SELECT_SELECT_OPTION_TEMPLATE.replace(CommonDef.TARGET_CSS_SELECTOR, cssSelector!!)
                     .replace(CommonDef.INPUT_VALUE, option.text())
             testOperationList.add(selectOptionOperation)
             testOperationList.add("")
 
+            testOperationList.add("//SELECTボックスの選択確認")
             val confirmSelectOperation = CommonDef.CONFIRM_SELECTED_TEMPLATE.replace(
                 CommonDef.TARGET_CSS_SELECTOR,
                 "$cssSelector > option[value='${option.value!!}']"

@@ -22,7 +22,7 @@ interface OperationGenerator {
         testOperationList.add("/**************** cssSelector ${cssSelector} の処理 start ****************/")
 
         if(!SelenideUtil.confirmExistenceByCssSelector(cssSelector!!)) {
-            testOperationList.add("confirmExistenceByCssSelector fail")
+            testOperationList.add("//confirmExistenceByCssSelector fail")
             return false
         }
 
@@ -32,15 +32,5 @@ interface OperationGenerator {
         testOperationList.add("")
 
         return true
-    }
-
-    fun generateRandomLetterOrDigit(length: Int): String {
-        return RandomStringGenerator.Builder().withinRange('0'.toInt(), 'z'.toInt())
-            .filteredBy(CharacterPredicate { codePoint: Int ->
-                Character.isLetterOrDigit(
-                    codePoint
-                )
-            })
-            .build().generate(length)
     }
 }

@@ -10,17 +10,19 @@ class RadioOperationGenerator : OperationGenerator {
     }
 
     override fun generateCustomOperation(cssSelector: String?, testOperationList : MutableList<String>): Collection<String> {
-        var radioName = SelenideUtil.selectByCssSelector(cssSelector!!).getAttribute("name")
-        var radioValue = SelenideUtil.selectByCssSelector(cssSelector).value
+        var radioName = SelenideUtil.getNameByCssSelector(cssSelector!!)
+        var radioValue = SelenideUtil.getValueByCssSelector(cssSelector)
 
         testOperationList.add("//ラジオボタンの選択")
         SelenideUtil.selectRadioByCssSelector("input[name=$radioName]", radioValue!!)
+
         var selectOperation = CommonDef.SELECT_RADIO_TEMPLATE.replace(CommonDef.TARGET_CSS_SELECTOR, "input[name=$radioName]").replace(CommonDef.INPUT_VALUE, radioValue)
         testOperationList.add(selectOperation)
         testOperationList.add("")
 
-        testOperationList.add("//テキストボックスへ入力した値の検証")
+        testOperationList.add("//ラジオボタンの選択の検証")
         SelenideUtil.shouldBeSelectedByCssSelector(cssSelector)
+
         val confirmOperation = CommonDef.CONFIRM_SELECTED_TEMPLATE.replace(CommonDef.TARGET_CSS_SELECTOR, cssSelector)
         testOperationList.add(confirmOperation)
         testOperationList.add("")

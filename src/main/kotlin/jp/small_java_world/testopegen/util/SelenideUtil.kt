@@ -2,6 +2,7 @@ package jp.small_java_world.testopegen.util
 
 import com.codeborne.selenide.Condition.selected
 import com.codeborne.selenide.Condition.value
+import com.codeborne.selenide.ElementsCollection
 import com.codeborne.selenide.Selenide
 import com.codeborne.selenide.SelenideElement
 import com.codeborne.selenide.WebDriverRunner
@@ -22,7 +23,13 @@ class SelenideUtil {
 
         @JvmStatic
         fun selectByCssSelector(cssSelector: String): SelenideElement {
-            return Selenide.`$`(By.cssSelector(cssSelector))
+            val result = Selenide.`$`(By.cssSelector(cssSelector))
+            return result
+        }
+
+        @JvmStatic
+        fun selectListByCssSelector(cssSelector: String): ElementsCollection {
+            return Selenide.`$$`(By.cssSelector(cssSelector))
         }
 
         @JvmStatic
@@ -102,6 +109,17 @@ class SelenideUtil {
         fun isDuplicateByCssSelector(cssSelector: String): Boolean {
             return Selenide.`$$`(By.cssSelector(cssSelector)).size != 1
         }
+
+        @JvmStatic
+        fun getValueByCssSelector(cssSelector: String): String? {
+            return selectByCssSelector(cssSelector).value
+        }
+
+        @JvmStatic
+        fun getNameByCssSelector(cssSelector: String): String? {
+            return selectByCssSelector(cssSelector).getAttribute("name")
+        }
+
     }
 }
 

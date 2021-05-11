@@ -29,6 +29,7 @@ class ${testClassName} {
     fun `${test.name}`() {
         ${test.operation}
     }
+
     </#list>
 
 }

@@ -1,28 +1,17 @@
 package jp.small_java_world.testopegen.generator
 
-import com.codeborne.selenide.Configuration
 import com.codeborne.selenide.ElementsCollection
-import com.codeborne.selenide.WebDriverRunner
-import com.codeborne.selenide.ex.InvalidStateException
-import com.codeborne.selenide.ex.UIAssertionError
 import com.codeborne.selenide.impl.StaticDriver
 import com.codeborne.selenide.impl.WebElementsCollectionWrapper
 import io.mockk.every
-import io.mockk.mockkObject
 import io.mockk.verify
-import jp.small_java_world.testopegen.TestBase
 import jp.small_java_world.testopegen.define.TargetElementType
 import jp.small_java_world.testopegen.element.DummySelenideElement
 import jp.small_java_world.testopegen.util.SelenideUtil
-import jp.small_java_world.testopegen.util.generateRandomLetterOrDigit
 import org.junit.jupiter.api.AfterEach
-import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.EnumSource
-import org.openqa.selenium.WebElement
-import org.openqa.selenium.remote.RemoteWebElement
 
 class SelectOperationGeneratorTest : OperationGeneratorTestBase() {
     companion object {
@@ -93,7 +82,7 @@ class SelectOperationGeneratorTest : OperationGeneratorTestBase() {
             SelenideUtil.selectListByCssSelector("$cssSelector > option")
         }
 
-        for(testDataPair in listOf(Pair(value1, text1), Pair(value2, text2))) {
+        for (testDataPair in listOf(Pair(value1, text1), Pair(value2, text2))) {
             verify(exactly = selectListByCssSelectorTimes) {
                 SelenideUtil.selectOptionByValueByCssSelector(cssSelector, testDataPair.first)
             }

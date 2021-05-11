@@ -1,18 +1,13 @@
 package jp.small_java_world.testopegen
 
-import com.codeborne.selenide.WebDriverRunner
 import jp.small_java_world.testopegen.analyzer.CssSelectorAnalyzer
 import jp.small_java_world.testopegen.define.TargetElementType
 import jp.small_java_world.testopegen.generator.OperationGeneratorFactory
 import jp.small_java_world.testopegen.util.TestOperationFileWriter
-import org.jsoup.Jsoup
-import org.jsoup.parser.Parser
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
 
 
-class TestExampleOperationGenerator {
-    private val logger: Logger = LoggerFactory.getLogger(TestExampleOperationGenerator::class.java)
+class TestExampleOperationGenerator() {
+    var cssSelectorAnalyzer = CssSelectorAnalyzer()
 
     fun generate(
         classTemplateFileName: String,
@@ -20,21 +15,8 @@ class TestExampleOperationGenerator {
         previousActionStringList: List<String>,
         previousAction: () -> Unit
     ) {
-        // { Selenide.open("file:///C:/example/input.html") }のような、Selenideで生成対象ページを開く処理の
-        // 前処理の無名関数の呼び出し　
-        previousAction.invoke()
-
-        //Selenideで生成対象ページのhtmlを取得
-        val driver = WebDriverRunner.getWebDriver()
-        val html = driver.pageSource
-
-        //Jsoupでhtmlを解析
-        val htmlDocument = Jsoup.parse(html, "", Parser.htmlParser())
-
-        //inputタグのorg.jsoup.select.Elementsを取得
-        val inputTagElements = htmlDocument.getElementsByTag("input")
-        //selectタグのorg.jsoup.select.Elementsを取得
-        val selectTagElements = htmlDocument.getElementsByTag("select")
+        //inputタグとselectタグのorg.jsoup.select.Elementsを取得
+        val targetElements = HtmlDocumentParser.getElements(previousAction, listOf("input", "select"))
 
         //ボタンのテスト操作の格納用 ボタン押すと画面遷移する可能性があるので、ボタンは1要素(HTMLの)につき1テストメソッドとするので別に管理
         var testButtonOperationCollectionList = mutableListOf<MutableList<String>>()
@@ -42,12 +24,11 @@ class TestExampleOperationGenerator {
         //ボタン以外のテスト操作の格納用
         var testOperationList = mutableListOf<String>()
 
-        val cssSelectorAnalyzer = CssSelectorAnalyzer()
+        //各タグを処理していく
+        for (targetElement in targetElements) {
 
-        //各inputタグを処理していく
-        for (inputTagElement in inputTagElements + selectTagElements) {
             // 現在の処理対象のinputTagElementに対応する Pair<String?, TargetElementType?>を取得
-            var selectorElementTypePair = cssSelectorAnalyzer.getCssSelectorElementTypePair(inputTagElement)
+            var selectorElementTypePair = cssSelectorAnalyzer.getCssSelectorElementTypePair(targetElement)
 
             //TargetElementTypeに対応するOperationGeneratorを生成
             var operationGenerator = OperationGeneratorFactory.getOperationGenerator(selectorElementTypePair.second)
@@ -75,6 +56,4 @@ class TestExampleOperationGenerator {
         )
 
     }
-
-
 }

@@ -1,13 +1,11 @@
 package jp.small_java_world.testopegen
 
-import io.mockk.clearAllMocks
 import io.mockk.unmockkAll
 import org.apache.commons.io.FileUtils
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.io.File
-import java.lang.StringBuilder
 import java.nio.charset.StandardCharsets
 
 open class TestBase {
@@ -44,7 +42,7 @@ open class TestBase {
         val url = this.javaClass.getResource(".")
         val fileFullPath = url.path + File.separator + fileName
         val targetFile = File(fileFullPath)
-        if(targetFile.exists()) {
+        if (targetFile.exists()) {
             return FileUtils.readFileToString(targetFile, StandardCharsets.UTF_8);
         }
         return "not exist fileName:${targetFile.absolutePath}"

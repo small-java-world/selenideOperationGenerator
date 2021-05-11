@@ -1,6 +1,5 @@
 package jp.small_java_world.testopegen.generator
 
-import com.codeborne.selenide.ex.InvalidStateException
 import com.codeborne.selenide.ex.UIAssertionError
 import jp.small_java_world.testopegen.define.CommonDef
 import jp.small_java_world.testopegen.define.TargetElementType
@@ -35,7 +34,8 @@ class ButtonOperationGenerator : OperationGenerator {
         testOperationList.add("")
 
         if (usingJavaScript) {
-            val clickUseJsOperation = CommonDef.CLICK_USE_JS_TEMPLATE.replace(CommonDef.TARGET_CSS_SELECTOR, cssSelector)
+            val clickUseJsOperation =
+                CommonDef.CLICK_USE_JS_TEMPLATE.replace(CommonDef.TARGET_CSS_SELECTOR, cssSelector)
             testOperationList.add(clickUseJsOperation)
             testOperationList.add("")
         }

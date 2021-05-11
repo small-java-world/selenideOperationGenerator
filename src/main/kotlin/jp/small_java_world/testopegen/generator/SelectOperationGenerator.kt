@@ -1,13 +1,8 @@
 package jp.small_java_world.testopegen.generator
 
-import com.codeborne.selenide.Selenide
-import jp.small_java_world.testopegen.TestExampleOperationGenerator
 import jp.small_java_world.testopegen.define.CommonDef
 import jp.small_java_world.testopegen.define.TargetElementType
 import jp.small_java_world.testopegen.util.SelenideUtil
-import org.openqa.selenium.By
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
 
 class SelectOperationGenerator : OperationGenerator {
     override fun getElementType(): TargetElementType {

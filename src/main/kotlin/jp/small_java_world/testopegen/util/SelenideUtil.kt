@@ -38,7 +38,7 @@ class SelenideUtil {
 
             try {
                 return Selenide.`$$`(By.cssSelector(cssSelector))
-            }finally {
+            } finally {
                 logger.info("selectListByCssSelector cssSelector=$cssSelector end ")
             }
         }

@@ -8,9 +8,11 @@ import jp.small_java_world.testopegen.define.TargetElementType
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Element
 import org.jsoup.parser.Parser
-import org.jsoup.select.Elements
-import org.junit.jupiter.api.*
+import org.junit.jupiter.api.AfterAll
+import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.BeforeAll
+import org.junit.jupiter.api.Test
 
 class CssSelectorAnalyzerTest : TestBase() {
     companion object {
@@ -92,9 +94,12 @@ class CssSelectorAnalyzerTest : TestBase() {
         testGetCssSelectorElementTypePairCommon("select.html", expectedResultList)
     }
 
-    private fun testGetCssSelectorElementTypePairCommon(htmlFileName: String, expectedResultList: List<Pair<String, TargetElementType>>) {
+    private fun testGetCssSelectorElementTypePairCommon(
+        htmlFileName: String,
+        expectedResultList: List<Pair<String, TargetElementType>>
+    ) {
         val inputTagElements = openAndGetElements(htmlFileName)
-        assertEquals(expectedResultList.size,  inputTagElements.size)
+        assertEquals(expectedResultList.size, inputTagElements.size)
 
         val cssSelectorAnalyzer = CssSelectorAnalyzer()
         for ((index, inputTagElement) in inputTagElements.withIndex()) {

@@ -1,10 +1,5 @@
 package jp.small_java_world.testopegen.util
 
-import freemarker.template.Configuration
-import java.io.File
-import java.nio.file.Files
-import java.nio.file.Paths
-
 class TemplateDataModelUtil {
     companion object {
         private const val SPACE_STRING = "        "

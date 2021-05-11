@@ -1,13 +1,10 @@
 package jp.small_java_world.testopegen.util
 
-import freemarker.template.Configuration
 import freemarker.template.Template
 import io.mockk.*
 import jp.small_java_world.testopegen.TestBase
-import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import java.io.BufferedWriter
 import java.io.File
 import java.io.Writer
 import java.nio.file.Files
@@ -76,7 +73,8 @@ class TestOperationFileWriterTest : TestBase() {
                 testClassName,
                 previousActionStringList,
                 testOperationList,
-                testButtonOperationCollectionList)
+                testButtonOperationCollectionList
+            )
 
             Files.exists(outputDirPath)
             Files.createDirectory(outputDirPath)

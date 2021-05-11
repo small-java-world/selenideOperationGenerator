@@ -1,10 +1,8 @@
 package jp.small_java_world.testopegen.generator
 
-import com.codeborne.selenide.Selenide
 import jp.small_java_world.testopegen.define.CommonDef
 import jp.small_java_world.testopegen.define.TargetElementType
-import jp.small_java_world.testopegen.util.*
-import org.openqa.selenium.By
+import jp.small_java_world.testopegen.util.SelenideUtil
 
 class CheckOperationGenerator : OperationGenerator {
     override fun getElementType(): TargetElementType {

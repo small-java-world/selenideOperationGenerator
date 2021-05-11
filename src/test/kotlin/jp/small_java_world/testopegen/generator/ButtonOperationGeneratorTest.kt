@@ -1,16 +1,12 @@
 package jp.small_java_world.testopegen.generator
 
 import com.codeborne.selenide.ex.InvalidStateException
-import com.codeborne.selenide.ex.UIAssertionError
 import io.mockk.every
-import io.mockk.mockkObject
 import io.mockk.verify
-import jp.small_java_world.testopegen.TestBase
 import jp.small_java_world.testopegen.define.TargetElementType
 import jp.small_java_world.testopegen.util.SelenideUtil
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.EnumSource
 

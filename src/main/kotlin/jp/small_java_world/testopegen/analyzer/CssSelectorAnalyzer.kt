@@ -6,8 +6,6 @@ import jp.small_java_world.testopegen.define.TargetElementType
 import jp.small_java_world.testopegen.util.SelenideUtil
 import org.jsoup.nodes.Attribute
 import org.jsoup.nodes.Element
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
 
 class CssSelectorAnalyzer {
     /**
@@ -54,7 +52,7 @@ class CssSelectorAnalyzer {
         attributes.remove("name")
 
         //タグごとの除外属性を除去
-        for(removeAttrName in getRemoveAttrNameList(elementType)) {
+        for (removeAttrName in getRemoveAttrNameList(elementType)) {
             attributes.remove(removeAttrName)
         }
 
@@ -66,7 +64,8 @@ class CssSelectorAnalyzer {
         for (parentCssSelector in listOf(null, parentCssSelectorValue)) {
             for (attribute in attributeList) {
                 //targetElement単独でのtagName[attrName='attrValue']のcssSelectorの文字列生成 idの場合は#id
-                val targetCssSelector = if(attribute.key.equals("id")) "#${attribute.value}" else "$tagName[${attribute.key}='${attribute.value}']"
+                val targetCssSelector =
+                    if (attribute.key.equals("id")) "#${attribute.value}" else "$tagName[${attribute.key}='${attribute.value}']"
 
                 //parentCssSelectorを加味したのcssSelectorの文字列生成
                 cssSelectorValue =
@@ -82,7 +81,7 @@ class CssSelectorAnalyzer {
         return null to null
     }
 
-    private fun getRemoveAttrNameList(targetElementType:TargetElementType?): List<String> {
+    private fun getRemoveAttrNameList(targetElementType: TargetElementType?): List<String> {
         return when (targetElementType) {
             TargetElementType.INPUT_TEXT -> listOf("value", "size", "maxlength")
             else -> listOf()
@@ -90,7 +89,7 @@ class CssSelectorAnalyzer {
 
     }
 
-    fun getParentCssSelector(targetElement: Element?): String? {
+    private fun getParentCssSelector(targetElement: Element?): String? {
         val parent = targetElement?.parent() ?: return null
         var cssSelectorValue = parent.cssSelector()
         if (!SelenideUtil.isDuplicateByCssSelector(cssSelectorValue)) {
@@ -106,7 +105,7 @@ class CssSelectorAnalyzer {
     }
 
 
-    fun getElementType(tagName: String?, inputType: String?): TargetElementType? {
+    private fun getElementType(tagName: String?, inputType: String?): TargetElementType? {
         return when (tagName) {
             TAG_NAME_INPUT -> {
                 when (inputType) {
@@ -121,4 +120,5 @@ class CssSelectorAnalyzer {
             else -> null
         }
     }
+
 }

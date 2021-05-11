@@ -53,7 +53,7 @@ class DummySelenideElement : SelenideElement {
     }
 
     override fun getAttribute(name: String): String? {
-        return when(name) {
+        return when (name) {
             "value" -> valueValue
             else -> ""
         }

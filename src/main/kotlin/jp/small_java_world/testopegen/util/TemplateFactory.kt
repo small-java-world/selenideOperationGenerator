@@ -1,11 +1,8 @@
 package jp.small_java_world.testopegen.util
 
-import com.codeborne.selenide.Selenide
-import com.codeborne.selenide.SelenideElement
 import freemarker.template.Configuration
 import freemarker.template.Template
 import jp.small_java_world.testopegen.generator.SelectOperationGenerator
-import org.openqa.selenium.By
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.io.File

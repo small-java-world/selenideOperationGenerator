@@ -1,7 +1,6 @@
 package jp.small_java_world.testopegen.util
 
-import com.codeborne.selenide.Condition.selected
-import com.codeborne.selenide.Condition.value
+import com.codeborne.selenide.Condition.*
 import com.codeborne.selenide.ElementsCollection
 import com.codeborne.selenide.Selenide
 import com.codeborne.selenide.SelenideElement
@@ -28,6 +27,7 @@ class SelenideUtil {
 
         @JvmStatic
         fun selectByCssSelector(cssSelector: String): SelenideElement {
+            Selenide.`$`(By.cssSelector(cssSelector)).click()
             val result = Selenide.`$`(By.cssSelector(cssSelector))
             return result
         }
@@ -104,6 +104,11 @@ class SelenideUtil {
         @JvmStatic
         fun shouldBeNotSelectedByCssSelector(cssSelector: String) {
             selectByCssSelector(cssSelector).shouldNotBe(selected)
+        }
+
+        @JvmStatic
+        fun shouldHaveAttributeByCssSelector(cssSelector: String, attrName:String, attrValue:String) {
+            selectByCssSelector(cssSelector).shouldHave(attribute(attrName, attrValue))
         }
 
         @JvmStatic

@@ -54,6 +54,5 @@ class TestExampleOperationGenerator() {
             testOperationList,
             testButtonOperationCollectionList
         )
-
     }
 }

@@ -24,6 +24,7 @@ class CommonDef {
         const val CONFIRM_NOT_SELECTED_TEMPLATE =
             "SelenideUtil.shouldBeNotSelectedByCssSelector(\"$TARGET_CSS_SELECTOR\")"
 
+        const val PROJECT_ROOT_PATH = "C:/workspace/SelenideOperationGenerator"
     }
 }
 

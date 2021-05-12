@@ -14,8 +14,8 @@ class TemplateDataModelUtil {
             dataModel["testClassName"] = testClassName
 
             val previousActionBuilder = StringBuilder()
-            previousActionStringList.forEach { previousActionBuilder.appendLine(it) }
-            dataModel["previousAction"] = previousActionBuilder.toString()
+            previousActionStringList.forEach { previousActionBuilder.appendLine("$SPACE_STRING$it") }
+            dataModel["previousAction"] = previousActionBuilder.substring(SPACE_STRING.length)
 
             val testMethodDataMapList = mutableListOf<Map<String, String>>()
             dataModel["testMethodDataList"] = testMethodDataMapList

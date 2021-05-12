@@ -5,15 +5,29 @@
   <title>操作対象サンプル</title>
 </head>
 <body>
-  
+  <!-- notDisplayButtonを3秒後に非表示化 -->
+  <script>
+  function setDisplayNo(){
+    let button = document.getElementById("notDisplayButton");
+    if (button){ button.style.display ="none";}
+  }
+
+  //load後、
+  window.addEventListener('load', function(){
+    window.setTimeout(function(){
+        setDisplayNo();
+    }, 3000);
+  });
+  </script>
+
   <h1>操作対象 input サンプル</h1>
   
   <label>button：</label>
   <input type="button" id="addButton" value="追加ボタン">
   <input type="button" id="deleteButton" value="削除ボタン">
   <input type="button" id="delayDeleteButton" value="遅延削除ボタン">
-  <input type="button" id="notDisplayButton" name="notDisplayButton" value="非表示のボタン" style="display:none">
-  <div style="visibility:hidden>
+  <input type="button" id="notDisplayButton" name="notDisplayButton" value="非表示のボタン">
+  <div style="visibility:hidden">
     <input type="button" id="blockedButton" name="blockedButton" value="親要素が非表示のボタン">
   </div>
   <HR>
@@ -29,21 +43,21 @@
   <HR>
     
   <label>text:</label>
-  
+
   <div id="p-input1-2-1">
      <input type="text" name="input1-2" id="input1" maxlength="10" value="input1-3" hoge="3">
   </div>
   <div id="p-input1-2-2">
      <input type="text" name="input1-2" id="input1" maxlength="10" value="input1-3" hoge="3">
   </div>
-  
+
   <BR>
   <input type="text" name="input1-1" id="input1" maxlength="10" value="input1-1">
   <input type="text" name="input1-2" id="input1" maxlength="10" value="input1-2" hoge="1">
   <input type="text" name="input1-2" id="input1" maxlength="10" value="input1-3" hoge="2">
   <input type="text" name="input1-2" id="input1" maxlength="10" value="input1-3" hoge="3">
-  <BR> 
-  
-  
+  <BR>
+
+
 </body>
 </html>

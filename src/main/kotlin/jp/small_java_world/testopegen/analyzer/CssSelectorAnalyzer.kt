@@ -83,10 +83,9 @@ class CssSelectorAnalyzer {
 
     private fun getRemoveAttrNameList(targetElementType: TargetElementType?): List<String> {
         return when (targetElementType) {
-            TargetElementType.INPUT_TEXT -> listOf("value", "size", "maxlength")
+            TargetElementType.INPUT_TEXT -> listOf("type", "value", "size", "maxlength")
             else -> listOf()
         }
-
     }
 
     private fun getParentCssSelector(targetElement: Element?): String? {
@@ -104,7 +103,6 @@ class CssSelectorAnalyzer {
         return null
     }
 
-
     private fun getElementType(tagName: String?, inputType: String?): TargetElementType? {
         return when (tagName) {
             TAG_NAME_INPUT -> {
@@ -120,5 +118,4 @@ class CssSelectorAnalyzer {
             else -> null
         }
     }
-
 }

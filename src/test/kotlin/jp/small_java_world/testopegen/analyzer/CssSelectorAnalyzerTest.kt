@@ -3,18 +3,17 @@ package jp.small_java_world.testopegen.analyzer
 import com.codeborne.selenide.Configuration
 import com.codeborne.selenide.Selenide
 import com.codeborne.selenide.WebDriverRunner
-import jp.small_java_world.testopegen.TestBase
+import jp.small_java_world.testopegen.define.CommonDef.Companion.PROJECT_ROOT_PATH
 import jp.small_java_world.testopegen.define.TargetElementType
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Element
 import org.jsoup.parser.Parser
 import org.junit.jupiter.api.AfterAll
-import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
 
-class CssSelectorAnalyzerTest : TestBase() {
+class CssSelectorAnalyzerTest {
     companion object {
         @JvmStatic
         @BeforeAll
@@ -29,11 +28,6 @@ class CssSelectorAnalyzerTest : TestBase() {
         }
     }
 
-    @AfterEach
-    override fun afterEach() {
-        super.afterEach()
-    }
-
     @Test
     fun `test getCssSelectorElementTypePair input button`() {
         val expectedResultList =
@@ -45,6 +39,27 @@ class CssSelectorAnalyzerTest : TestBase() {
             )
 
         testGetCssSelectorElementTypePairCommon("input_button.html", expectedResultList)
+    }
+
+    private fun testGetCssSelectorElementTypePairCommon(
+        htmlFileName: String,
+        expectedResultList: List<Pair<String, TargetElementType>>
+    ) {
+        val inputTagElements = openAndGetElements(htmlFileName)
+        assertEquals(expectedResultList.size, inputTagElements.size)
+
+        val cssSelectorAnalyzer = CssSelectorAnalyzer()
+        for ((index, inputTagElement) in inputTagElements.withIndex()) {
+            assertEquals(expectedResultList[index], cssSelectorAnalyzer.getCssSelectorElementTypePair(inputTagElement))
+        }
+    }
+
+    private fun openAndGetElements(htmlFileName: String): List<Element> {
+        Selenide.open("file:///$PROJECT_ROOT_PATH/html/$htmlFileName")
+        val driver = WebDriverRunner.getWebDriver()
+        val html = driver.pageSource
+        val doc = Jsoup.parse(html, "", Parser.htmlParser())
+        return doc.getElementsByTag("input") + doc.getElementsByTag("select")
     }
 
     @Test
@@ -92,26 +107,5 @@ class CssSelectorAnalyzerTest : TestBase() {
             )
 
         testGetCssSelectorElementTypePairCommon("select.html", expectedResultList)
-    }
-
-    private fun testGetCssSelectorElementTypePairCommon(
-        htmlFileName: String,
-        expectedResultList: List<Pair<String, TargetElementType>>
-    ) {
-        val inputTagElements = openAndGetElements(htmlFileName)
-        assertEquals(expectedResultList.size, inputTagElements.size)
-
-        val cssSelectorAnalyzer = CssSelectorAnalyzer()
-        for ((index, inputTagElement) in inputTagElements.withIndex()) {
-            assertEquals(expectedResultList[index], cssSelectorAnalyzer.getCssSelectorElementTypePair(inputTagElement))
-        }
-    }
-
-    private fun openAndGetElements(htmlFileName: String): List<Element> {
-        Selenide.open("file:///C:/example/$htmlFileName")
-        val driver = WebDriverRunner.getWebDriver()
-        val html = driver.pageSource
-        val doc = Jsoup.parse(html, "", Parser.htmlParser())
-        return doc.getElementsByTag("input") + doc.getElementsByTag("select")
     }
 }

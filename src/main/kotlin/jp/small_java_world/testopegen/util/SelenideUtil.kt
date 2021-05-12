@@ -5,16 +5,11 @@ import com.codeborne.selenide.ElementsCollection
 import com.codeborne.selenide.Selenide
 import com.codeborne.selenide.SelenideElement
 import com.codeborne.selenide.WebDriverRunner
-import jp.small_java_world.testopegen.generator.SelectOperationGenerator
 import org.openqa.selenium.By
 import org.openqa.selenium.JavascriptExecutor
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
 
 class SelenideUtil {
     companion object {
-        private val logger: Logger = LoggerFactory.getLogger(SelectOperationGenerator::class.java)
-
         @JvmStatic
         fun selectByName(tagName: String): SelenideElement {
             return Selenide.`$`(By.name(tagName))
@@ -27,20 +22,12 @@ class SelenideUtil {
 
         @JvmStatic
         fun selectByCssSelector(cssSelector: String): SelenideElement {
-            Selenide.`$`(By.cssSelector(cssSelector)).click()
-            val result = Selenide.`$`(By.cssSelector(cssSelector))
-            return result
+            return Selenide.`$`(By.cssSelector(cssSelector))
         }
 
         @JvmStatic
         fun selectListByCssSelector(cssSelector: String): ElementsCollection {
-            logger.info("selectListByCssSelector cssSelector=$cssSelector start ")
-
-            try {
-                return Selenide.`$$`(By.cssSelector(cssSelector))
-            } finally {
-                logger.info("selectListByCssSelector cssSelector=$cssSelector end ")
-            }
+            return Selenide.`$$`(By.cssSelector(cssSelector))
         }
 
         @JvmStatic
@@ -107,7 +94,7 @@ class SelenideUtil {
         }
 
         @JvmStatic
-        fun shouldHaveAttributeByCssSelector(cssSelector: String, attrName:String, attrValue:String) {
+        fun shouldHaveAttributeByCssSelector(cssSelector: String, attrName: String, attrValue: String) {
             selectByCssSelector(cssSelector).shouldHave(attribute(attrName, attrValue))
         }
 
@@ -123,7 +110,7 @@ class SelenideUtil {
 
         @JvmStatic
         fun isDuplicateByCssSelector(cssSelector: String): Boolean {
-            return Selenide.`$$`(By.cssSelector(cssSelector)).size != 1
+            return Selenide.`$$`(By.cssSelector(cssSelector)).size != 1 && Selenide.`$$`(By.cssSelector(cssSelector)).size != 0
         }
 
         @JvmStatic
@@ -135,8 +122,5 @@ class SelenideUtil {
         fun getNameByCssSelector(cssSelector: String): String? {
             return selectByCssSelector(cssSelector).getAttribute("name")
         }
-
     }
 }
-
-

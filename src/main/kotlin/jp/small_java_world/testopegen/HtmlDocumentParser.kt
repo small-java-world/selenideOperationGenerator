@@ -9,8 +9,8 @@ class HtmlDocumentParser {
     companion object {
         @JvmStatic
         fun getElements(previousAction: () -> Unit, targetTagList: List<String>): Elements {
-            // { Selenide.open("file:///C:/example/input.html") }のような、Selenideで生成対象ページを開く処理の
-            // 前処理の無名関数の呼び出し　
+            // { Selenide.open("file:///C:/example/input.html") }のような、
+            // Selenideで生成対象ページを開く前処理の無名関数の呼び出し　
             previousAction.invoke()
 
             //Selenideで生成対象ページのhtmlを取得

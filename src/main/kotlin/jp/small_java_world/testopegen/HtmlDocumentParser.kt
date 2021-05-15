@@ -8,7 +8,7 @@ import org.jsoup.select.Elements
 class HtmlDocumentParser {
     companion object {
         @JvmStatic
-        fun getElements(previousAction: () -> Unit, targetTagList: List<String>): Elements {
+        fun getElements(previousAction: () -> Unit, targetTagList: List<String> = listOf("input", "select")): Elements {
             // { Selenide.open("file:///C:/example/input.html") }のような、
             // Selenideで生成対象ページを開く前処理の無名関数の呼び出し　
             previousAction.invoke()

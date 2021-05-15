@@ -16,7 +16,7 @@ class TestExampleOperationGenerator() {
         previousAction: () -> Unit
     ) {
         //inputタグとselectタグのorg.jsoup.select.Elementsを取得
-        val targetElements = HtmlDocumentParser.getElements(previousAction, listOf("input", "select"))
+        val targetElements = HtmlDocumentParser.getElements(previousAction)
 
         //ボタンのテスト操作の格納用 ボタン押すと画面遷移する可能性があるので、ボタンは1要素(HTMLの)につき1テストメソッドとするので別に管理
         var testButtonOperationCollectionList = mutableListOf<MutableList<String>>()
@@ -34,7 +34,7 @@ class TestExampleOperationGenerator() {
             var operationGenerator = OperationGeneratorFactory.getOperationGenerator(selectorElementTypePair.second)
 
             if (operationGenerator != null) {
-                when (selectorElementTypePair.second) {
+                when (selectorElementTypePair?.second) {
                     //TargetElementType.INPUT_BUTTONのときのみtestButtonOperationCollectionListに追加
                     TargetElementType.INPUT_BUTTON -> testButtonOperationCollectionList.add(
                         operationGenerator.generateOperation(

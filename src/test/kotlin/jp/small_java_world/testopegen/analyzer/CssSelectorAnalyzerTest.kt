@@ -81,7 +81,7 @@ class CssSelectorAnalyzerTest {
                 "#lang2" to TargetElementType.INPUT_CHECKBOX,
             )
 
-        testGetCssSelectorElementTypePairCommon("input_checkbox.html", expectedResultList)
+            testGetCssSelectorElementTypePairCommon("input_checkbox.html", expectedResultList)
     }
 
     @Test

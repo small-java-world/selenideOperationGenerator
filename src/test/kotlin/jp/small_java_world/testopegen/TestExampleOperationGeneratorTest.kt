@@ -40,7 +40,7 @@ class TestExampleOperationGeneratorTest : TestBase() {
         val getElementsResult = Elements(listOf(buttonElement, textElement))
 
         val previousAction = {}
-        every { HtmlDocumentParser.getElements(previousAction, listOf("input", "select")) } returns getElementsResult
+        every { HtmlDocumentParser.getElements(previousAction) } returns getElementsResult
 
         val buttonPair = "buttonCss" to TargetElementType.INPUT_BUTTON
         val textPair = "textCss" to TargetElementType.INPUT_TEXT
@@ -81,7 +81,7 @@ class TestExampleOperationGeneratorTest : TestBase() {
         )
 
         verify(exactly = 1) {
-            HtmlDocumentParser.getElements(previousAction, listOf("input", "select"))
+            HtmlDocumentParser.getElements(previousAction)
             cssSelectorAnalyzer.getCssSelectorElementTypePair(buttonElement)
             cssSelectorAnalyzer.getCssSelectorElementTypePair(textElement)
             OperationGeneratorFactory.getOperationGenerator(buttonPair.second)

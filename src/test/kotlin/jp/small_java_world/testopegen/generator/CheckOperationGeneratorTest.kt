@@ -6,14 +6,11 @@ import jp.small_java_world.testopegen.define.TargetElementType
 import jp.small_java_world.testopegen.util.SelenideUtil
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.EnumSource
 
 class CheckOperationGeneratorTest : OperationGeneratorTestBase() {
-    companion object {
-        val EXPECTED_FILENAME_PREFIX = TargetElementType.INPUT_CHECKBOX.type
-    }
-
     @BeforeEach
     override fun beforeEach() {
         super.beforeEach()
@@ -28,54 +25,24 @@ class CheckOperationGeneratorTest : OperationGeneratorTestBase() {
         return CheckOperationGenerator()
     }
 
-    enum class CheckOperationGeneratorTestType(val id: Int, val resultFileName: String) {
-        ConfirmExistenceFail(100, "confirmFail.txt"),
-        Success(300, "$EXPECTED_FILENAME_PREFIX-successResult.txt"),
-    }
-
-    @ParameterizedTest
-    @EnumSource(CheckOperationGeneratorTestType::class)
-    fun testOperationGenerator(testType: CheckOperationGeneratorTestType) {
+    @Test
+    fun testOperationGenerator() {
         val cssSelector = "cssSelectorValue"
-        every { SelenideUtil.confirmExistenceByCssSelector(cssSelector) } returns (testType != CheckOperationGeneratorTestType.ConfirmExistenceFail)
-
-        var checkByCssSelectorTimes = 0
-
-        if (testType.id > CheckOperationGeneratorTestType.ConfirmExistenceFail.id) {
-            checkByCssSelectorTimes = 1
-            every { SelenideUtil.checkByCssSelector(cssSelector) } returns Unit
-            every { SelenideUtil.shouldBeSelectedByCssSelector(cssSelector) } returns Unit
-            every { SelenideUtil.unCheckByCssSelector(cssSelector) } returns Unit
-            every { SelenideUtil.shouldBeNotSelectedByCssSelector(cssSelector) } returns Unit
-        }
+        every { SelenideUtil.confirmExistenceByCssSelector(cssSelector) } returns true
+        every { SelenideUtil.checkByCssSelector(cssSelector) } returns Unit
+        every { SelenideUtil.shouldBeSelectedByCssSelector(cssSelector) } returns Unit
+        every { SelenideUtil.unCheckByCssSelector(cssSelector) } returns Unit
+        every { SelenideUtil.shouldBeNotSelectedByCssSelector(cssSelector) } returns Unit
 
         var result = getTargetOperationGenerator().generateOperation(cssSelector)
-        assertFileEquals(testType.resultFileName, result)
+        assertFileEquals("checkbox-successResult.txt", result)
 
-        verify(exactly = 1) { SelenideUtil.confirmExistenceByCssSelector(cssSelector) }
-
-        verify(exactly = checkByCssSelectorTimes) {
-            SelenideUtil.checkByCssSelector(
-                cssSelector
-            )
-        }
-
-        verify(exactly = checkByCssSelectorTimes) {
-            SelenideUtil.shouldBeSelectedByCssSelector(
-                cssSelector
-            )
-        }
-
-        verify(exactly = checkByCssSelectorTimes) {
-            SelenideUtil.unCheckByCssSelector(
-                cssSelector
-            )
-        }
-
-        verify(exactly = checkByCssSelectorTimes) {
-            SelenideUtil.shouldBeNotSelectedByCssSelector(
-                cssSelector
-            )
+        verify(exactly = 1) {
+            SelenideUtil.confirmExistenceByCssSelector(cssSelector)
+            SelenideUtil.checkByCssSelector(cssSelector)
+            SelenideUtil.shouldBeSelectedByCssSelector(cssSelector)
+            SelenideUtil.unCheckByCssSelector(cssSelector)
+            SelenideUtil.shouldBeNotSelectedByCssSelector(cssSelector)
         }
     }
 }

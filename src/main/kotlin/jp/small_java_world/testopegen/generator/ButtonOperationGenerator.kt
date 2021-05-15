@@ -42,5 +42,4 @@ class ButtonOperationGenerator : OperationGenerator {
 
         return testOperationList;
     }
-
 }

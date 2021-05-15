@@ -25,9 +25,7 @@ class CssSelectorAnalyzer {
      * @return Pair<String?, TargetElementType?>
      */
     fun getCssSelectorElementTypePair(targetElement: Element?): Pair<String?, TargetElementType?> {
-        if (targetElement == null) {
-            return null to null
-        }
+        checkNotNull(targetElement) { "targetElement cannot be null" }
 
         val tagName = targetElement.tagName()
         val inputType = targetElement.attr("type")
@@ -47,14 +45,8 @@ class CssSelectorAnalyzer {
         val idAttribute = Attribute("id", attributes.get("id"))
         val nameAttribute = Attribute("name", attributes.get("name"))
 
-        //idとnameは優先したいのでattributesからは除外
-        attributes.remove("id")
-        attributes.remove("name")
-
-        //タグごとの除外属性を除去
-        for (removeAttrName in getRemoveAttrNameList(elementType)) {
-            attributes.remove(removeAttrName)
-        }
+        //idとnameとタグごとの除外属性を除去
+        (getRemoveAttrNameList(elementType) + listOf("id", "name")).forEach { attributes.remove(it) }
 
         //idとname属性を優先するattributeListを生成
         val attributeList = listOf(idAttribute, nameAttribute) + attributes
@@ -65,11 +57,13 @@ class CssSelectorAnalyzer {
             for (attribute in attributeList) {
                 //targetElement単独でのtagName[attrName='attrValue']のcssSelectorの文字列生成 idの場合は#id
                 val targetCssSelector =
-                    if (attribute.key.equals("id")) "#${attribute.value}" else "$tagName[${attribute.key}='${attribute.value}']"
+                    attribute.run { if (key.equals("id")) "#${value}" else "$tagName[${key}='${value}']" }
 
                 //parentCssSelectorを加味したのcssSelectorの文字列生成
                 cssSelectorValue =
-                    if (parentCssSelector == null) targetCssSelector else "$parentCssSelector > $targetCssSelector"
+                    parentCssSelector?.let {
+                        "$it > $targetCssSelector"
+                    } ?: targetCssSelector
 
                 //cssSelectorValueでHTML要素が一意であれば結果をリターン
                 if (!SelenideUtil.isDuplicateByCssSelector(cssSelectorValue)) {
@@ -84,7 +78,7 @@ class CssSelectorAnalyzer {
     private fun getRemoveAttrNameList(targetElementType: TargetElementType?): List<String> {
         return when (targetElementType) {
             TargetElementType.INPUT_TEXT -> listOf("type", "value", "size", "maxlength")
-            else -> listOf()
+            else -> listOf("type")
         }
     }
 

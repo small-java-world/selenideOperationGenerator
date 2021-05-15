@@ -5,10 +5,25 @@ import jp.small_java_world.testopegen.define.CommonDef.Companion.PROJECT_ROOT_PA
 import jp.small_java_world.testopegen.util.SelenideUtil
 
 fun main(args: Array<String>) {
-    val testOperationGenerator = TestExampleOperationGenerator()
+    val testExampleOperationGenerator = TestExampleOperationGenerator()
     val targetHtmlFullPath = "file://$PROJECT_ROOT_PATH/html/input.html"
 
-    testOperationGenerator.generate(
+    //    val previousAction: (String) -> Unit = { targetUtl ->
+//        Selenide.open(targetUtl)
+//        SelenideUtil.shouldHaveAttributeByCssSelector("#notDisplayButton", "style", "display: none;")
+//    }
+
+
+//    testOperationGenerator.generate(
+//        "testOperationClassTemplate.ftl",
+//        "InputTest",
+//        listOf(
+//            "Selenide.open(\"$targetHtmlFullPath\")",
+//            "SelenideUtil.shouldHaveAttributeByCssSelector(\"#notDisplayButton\", \"style\", \"display: none;\")"
+//        ), previousAction
+//    )
+
+    testExampleOperationGenerator.generate(
         "testOperationClassTemplate.ftl",
         "InputTest",
         listOf(

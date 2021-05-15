@@ -2,18 +2,12 @@ package jp.small_java_world.testopegen.generator
 
 import io.mockk.every
 import io.mockk.verify
-import jp.small_java_world.testopegen.define.TargetElementType
 import jp.small_java_world.testopegen.util.SelenideUtil
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.params.ParameterizedTest
-import org.junit.jupiter.params.provider.EnumSource
+import org.junit.jupiter.api.Test
 
 class RadioOperationGeneratorTest : OperationGeneratorTestBase() {
-    companion object {
-        val EXPECTED_FILENAME_PREFIX = TargetElementType.INPUT_RADIO.type
-    }
-
     @BeforeEach
     override fun beforeEach() {
         super.beforeEach()
@@ -28,52 +22,27 @@ class RadioOperationGeneratorTest : OperationGeneratorTestBase() {
         return RadioOperationGenerator()
     }
 
-    enum class RadioOperationGeneratorTestType(val id: Int, val resultFileName: String) {
-        ConfirmExistenceFail(100, "confirmFail.txt"),
-        Success(300, "$EXPECTED_FILENAME_PREFIX-successResult.txt"),
-    }
-
-    @ParameterizedTest
-    @EnumSource(RadioOperationGeneratorTestType::class)
-    fun testOperationGenerator(testType: RadioOperationGeneratorTestType) {
+    @Test
+    fun testOperationGenerator() {
         val cssSelector = "cssSelectorValue"
-        every { SelenideUtil.confirmExistenceByCssSelector(cssSelector) } returns (testType != RadioOperationGeneratorTestType.ConfirmExistenceFail)
-
-        var getNameByCssSelectorTimes = 0
+        every { SelenideUtil.confirmExistenceByCssSelector(cssSelector) } returns true
 
         val radioName = "radio-name"
         val radioValue = "radio-value"
 
-        if (testType.id > RadioOperationGeneratorTestType.ConfirmExistenceFail.id) {
-            getNameByCssSelectorTimes = 1
-            every { SelenideUtil.getNameByCssSelector(cssSelector) } returns radioName
-            every { SelenideUtil.getValueByCssSelector(cssSelector) } returns radioValue
-            every { SelenideUtil.selectRadioByCssSelector("input[name=$radioName]", radioValue) } returns Unit
-            every { SelenideUtil.shouldBeSelectedByCssSelector(cssSelector) } returns Unit
-        }
+        every { SelenideUtil.getNameByCssSelector(cssSelector) } returns radioName
+        every { SelenideUtil.getValueByCssSelector(cssSelector) } returns radioValue
+        every { SelenideUtil.selectRadioByCssSelector("input[name=$radioName]", radioValue) } returns Unit
+        every { SelenideUtil.shouldBeSelectedByCssSelector(cssSelector) } returns Unit
 
         var result = getTargetOperationGenerator().generateOperation(cssSelector)
-        assertFileEquals(testType.resultFileName, result)
+        assertFileEquals("radio-successResult.txt", result)
 
-        verify(exactly = 1) { SelenideUtil.confirmExistenceByCssSelector(cssSelector) }
-
-        verify(exactly = getNameByCssSelectorTimes) {
-            SelenideUtil.getNameByCssSelector(
-                cssSelector
-            )
-        }
-
-        verify(exactly = getNameByCssSelectorTimes) {
-            SelenideUtil.getValueByCssSelector(
-                cssSelector
-            )
-        }
-
-        verify(exactly = getNameByCssSelectorTimes) {
+        verify(exactly = 1) {
+            SelenideUtil.confirmExistenceByCssSelector(cssSelector)
+            SelenideUtil.getNameByCssSelector(cssSelector)
+            SelenideUtil.getValueByCssSelector(cssSelector)
             SelenideUtil.selectRadioByCssSelector("input[name=$radioName]", radioValue)
-        }
-
-        verify(exactly = getNameByCssSelectorTimes) {
             SelenideUtil.shouldBeSelectedByCssSelector(
                 cssSelector
             )

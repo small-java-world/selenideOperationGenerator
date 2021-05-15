@@ -13,18 +13,6 @@ open class TestBase {
 
     open fun afterEach() = unmockkAll()
 
-    /**
-     * 指定ファイルの中身を期待値としてactualと一致するか検証します。
-     * ファイルのパスはcom.example.todoList.controller.TopControllerからfileName="expectedListResult.txt"
-     * で呼び出された場合はbuildディレクトリの配下のclasses/kotlin/test/com/example/todoList/controller/expectedListResult.txt
-     * となります。
-     */
-    fun assertFileEquals(expectedResultFileName: String, actual: String) {
-        logger.info("assertFileEquals expectedResultFileName={} start", expectedResultFileName)
-        val expectedResult = readText(expectedResultFileName)
-        assertEquals(expectedResult, actual)
-    }
-
     fun assertFileEquals(expectedResultFileName: String, actual: List<String>) {
         logger.info("assertFileEquals expectedResultFileName={} start", expectedResultFileName)
         val expectedResult = readText(expectedResultFileName)

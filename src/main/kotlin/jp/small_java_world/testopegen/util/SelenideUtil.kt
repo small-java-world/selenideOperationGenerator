@@ -67,11 +67,11 @@ class SelenideUtil {
         fun selectOptionByValueByCssSelector(cssSelector: String, value: String) {
             selectByCssSelector(cssSelector).selectOptionByValue(value)
         }
-
         @JvmStatic
         fun selectOptionByCssSelector(cssSelector: String, value: String) {
             selectByCssSelector(cssSelector).selectOption(value)
         }
+
 
         @JvmStatic
         fun checkByCssSelector(cssSelector: String) {

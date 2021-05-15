@@ -5,23 +5,7 @@
   <title>操作対象サンプル</title>
 </head>
 <body>
-  <!-- notDisplayButtonを3秒後に非表示化 -->
-  <script>
-  function setDisplayNo(){
-    let button = document.getElementById("notDisplayButton");
-    if (button){ button.style.display ="none";}
-  }
-
-  //load後、
-  window.addEventListener('load', function(){
-    window.setTimeout(function(){
-        setDisplayNo();
-    }, 3000);
-  });
-  </script>
-  
   <h1>操作対象 input button サンプル</h1>
-  
   <label>button：</label>
   <input type="button" id="addButton" value="追加ボタン">
   <input type="button" id="deleteButton" value="削除ボタン">
@@ -30,6 +14,5 @@
   <div style="visibility:hidden>
     <input type="button" id="blockedButton" name="blockedButton" value="親要素が非表示のボタン">
   </div>
-  
 </body>
 </html>

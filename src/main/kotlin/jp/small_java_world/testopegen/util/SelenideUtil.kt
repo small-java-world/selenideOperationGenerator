@@ -67,11 +67,11 @@ class SelenideUtil {
         fun selectOptionByValueByCssSelector(cssSelector: String, value: String) {
             selectByCssSelector(cssSelector).selectOptionByValue(value)
         }
+
         @JvmStatic
         fun selectOptionByCssSelector(cssSelector: String, value: String) {
             selectByCssSelector(cssSelector).selectOption(value)
         }
-
 
         @JvmStatic
         fun checkByCssSelector(cssSelector: String) {
@@ -110,7 +110,7 @@ class SelenideUtil {
 
         @JvmStatic
         fun isDuplicateByCssSelector(cssSelector: String): Boolean {
-            return Selenide.`$$`(By.cssSelector(cssSelector)).size != 1 && Selenide.`$$`(By.cssSelector(cssSelector)).size != 0
+            return Selenide.`$$`(By.cssSelector(cssSelector)).size !in (listOf(0, 1))
         }
 
         @JvmStatic

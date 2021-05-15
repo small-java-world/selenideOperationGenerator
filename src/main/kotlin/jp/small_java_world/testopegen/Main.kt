@@ -8,21 +8,6 @@ fun main(args: Array<String>) {
     val testExampleOperationGenerator = TestExampleOperationGenerator()
     val targetHtmlFullPath = "file://$PROJECT_ROOT_PATH/html/input.html"
 
-    //    val previousAction: (String) -> Unit = { targetUtl ->
-//        Selenide.open(targetUtl)
-//        SelenideUtil.shouldHaveAttributeByCssSelector("#notDisplayButton", "style", "display: none;")
-//    }
-
-
-//    testOperationGenerator.generate(
-//        "testOperationClassTemplate.ftl",
-//        "InputTest",
-//        listOf(
-//            "Selenide.open(\"$targetHtmlFullPath\")",
-//            "SelenideUtil.shouldHaveAttributeByCssSelector(\"#notDisplayButton\", \"style\", \"display: none;\")"
-//        ), previousAction
-//    )
-
     testExampleOperationGenerator.generate(
         "testOperationClassTemplate.ftl",
         "InputTest",

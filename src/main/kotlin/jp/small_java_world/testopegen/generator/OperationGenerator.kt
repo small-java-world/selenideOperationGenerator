@@ -10,6 +10,7 @@ interface OperationGenerator {
     fun getElementType(): TargetElementType
 
     fun generateOperation(cssSelector: String?): MutableList<String> {
+
         var testOperationList = mutableListOf<String>()
         if (addConfirmOperation(cssSelector, getElementType().tagNameJp, testOperationList)) {
             generateCustomOperation(cssSelector, testOperationList)

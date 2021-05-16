@@ -36,11 +36,15 @@ class TestExampleOperationGenerator() {
             if (operationGenerator != null) {
                 when (selectorElementTypePair?.second) {
                     //TargetElementType.INPUT_BUTTONのときのみtestButtonOperationCollectionListに追加
-                    TargetElementType.INPUT_BUTTON -> testButtonOperationCollectionList.add(
-                        operationGenerator.generateOperation(
-                            selectorElementTypePair.first
+                    TargetElementType.INPUT_BUTTON -> {
+                        testButtonOperationCollectionList.add(
+                            operationGenerator.generateOperation(
+                                selectorElementTypePair.first
+                            )
                         )
-                    )
+                        //ボタンを実際にクリックするので画面遷移していると後続の要素の処理が失敗するので前処理を呼び出し
+                        previousAction.invoke()
+                    }
                     else -> testOperationList.addAll(operationGenerator.generateOperation(selectorElementTypePair.first))
                 }
             }
